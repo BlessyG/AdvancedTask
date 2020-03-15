@@ -7,7 +7,7 @@ export default class SocialMediaLinkedAccount extends React.Component {
     constructor(props) {
         super(props);
         debugger
-        const prevLinkedAccounts = props.linkedAccounts ? Object.assign({}, props.linkedAccounts) : {
+        const prevLinkedAccounts = this.props.linkedAccounts ? Object.assign({}, this.props.linkedAccounts) : {
             
                 linkedIn: "",
                 github: ""
@@ -16,7 +16,10 @@ export default class SocialMediaLinkedAccount extends React.Component {
         this.state = {
             showEditSection: false,
             newLinkedAccounts: {
-                linkedAccounts: prevLinkedAccounts
+                linkedAccounts: {
+                    linkedIn: prevLinkedAccounts.linkedIn,
+                    github: prevLinkedAccounts.github
+                }
             }
         }
         this.openEdit = this.openEdit.bind(this);
@@ -33,13 +36,13 @@ export default class SocialMediaLinkedAccount extends React.Component {
         const linkedAccounts = Object.assign({}, this.props.linkedAccounts)
         this.setState({
             showEditSection: true,
-            newLinkedAccounts: linkedAccounts
+            newLinkedAccounts:{ linkedAccounts: linkedAccounts }
         })
     }
 
     handleChange(event) {
         debugger
-        const data = Object.assign({}, this.state.newLinkedAccounts)
+        const data = Object.assign({}, this.state.newLinkedAccounts.linkedAccounts)
         data[event.target.name] = event.target.value
         this.setState({
             newLinkedAccounts: { linkedAccounts: data }
@@ -49,8 +52,6 @@ export default class SocialMediaLinkedAccount extends React.Component {
     saveContact() {
         
         const data = Object.assign({}, this.state.newLinkedAccounts)
-
-        console.log("Social Media data to save " + data.github)
         this.props.saveProfileData(data)
         this.closeEdit();
     }
@@ -75,7 +76,7 @@ export default class SocialMediaLinkedAccount extends React.Component {
                     inputType="text"
                     label="LinkedIn"
                     name="linkedIn"
-                    value={this.state.newLinkedAccounts.linkedIn}
+                    value={this.state.newLinkedAccounts.linkedAccounts.linkedIn}
                     controlFunc={this.handleChange}
                     maxLength={80}
                     placeholder="Enter your LinkedIn Url"
@@ -86,7 +87,7 @@ export default class SocialMediaLinkedAccount extends React.Component {
                     inputType="text"
                     label="GitHub"
                     name="github"
-                    value={this.state.newLinkedAccounts.github}
+                    value={this.state.newLinkedAccounts.linkedAccounts.github}
                     controlFunc={this.handleChange}
                     maxLength={80}
                     placeholder="Enter your GitHub Url"
@@ -101,7 +102,7 @@ export default class SocialMediaLinkedAccount extends React.Component {
 
     renderDisplay() {
 
-        let linkedIn = this.props.linkedAccounts ? `${this.props.linkedAccounts.linkedIn}` : ""
+        let linkedIn = this.props.linkedAccounts ? this.props.linkedAccounts.linkedIn : ""
         let github = this.props.linkedAccounts ? this.props.linkedAccounts.github : ""
 
         return (
