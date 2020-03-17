@@ -2,7 +2,8 @@
 import Cookies from 'js-cookie'
 import { default as Countries } from '../../../../util/jsonFiles/countries.json';
 import { ChildSingleInput } from '../Form/SingleInput.jsx';
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown } from 'semantic-ui-react';
+import { nationality } from '../Employer/common.js'
 
 export class Address extends React.Component {
     constructor(props) {
@@ -77,11 +78,6 @@ export class Address extends React.Component {
             data["city"] = "";
         }
         if (changedValue != null) {
-            //popCities = countries[value].map(x => <option key={x} value={x}> {x}</option>);
-            //popCities = Countries[value].map(x => {
-            //    key = x.value;
-            //    value = x.value;
-            //})
             popCities = _.map(Countries[changedValue], (state, index) => ({
                 key: state,
                 text: state,
@@ -113,10 +109,6 @@ export class Address extends React.Component {
         let countriesOptions = [];
         const selectedCountry = this.state.newAddress.country;
         const selectedCity = this.state.newAddress.city;
-
-        //countriesOptions = Object.keys(Countries).map((x) => <option key={x} value={x}>{x}</option>);
-        //countriesOptions = Object.keys(Countries).map((x) => { key: Countries[x]; value: Countries[x] });
-
         countriesOptions = _.map(Countries, (state, index) => ({
             key: index,
             text: index,
@@ -220,131 +212,47 @@ export class Address extends React.Component {
 export class Nationality extends React.Component {
     constructor(props) {
         super(props)
-
-        const details = props.details ?
-            Object.assign({}, props.details)
+        debugger
+        const details = props.nationalityData ? Object.assign({}, props.nationalityData)
             : {
-                name: "",
-                email: "",
-                phone: ""
+                nationality: ""
             }
-
         this.state = {
-            showEditSection: false,
-            newContact: details
+            newData: details
         }
-
-        this.openEdit = this.openEdit.bind(this)
-        this.closeEdit = this.closeEdit.bind(this)
         this.handleChange = this.handleChange.bind(this)
-        this.saveContact = this.saveContact.bind(this)
-        this.renderEdit = this.renderEdit.bind(this)
-        this.renderDisplay = this.renderDisplay.bind(this)
     }
 
-    openEdit() {
-        const details = Object.assign({}, this.props.details)
+    handleChange(event, { value }) {
+        const data = Object.assign({}, this.state.newData)
+        data["nationality"] = value
         this.setState({
-            showEditSection: true,
-            newContact: details
+            newData: data
         })
-    }
-
-    closeEdit() {
-        this.setState({
-            showEditSection: false
-        })
-    }
-
-    handleChange(event) {
-        const data = Object.assign({}, this.state.newContact)
-        data[event.target.name] = event.target.value
-        this.setState({
-            newContact: data
-        })
-    }
-
-    saveContact() {
-        const data = Object.assign({}, this.state.newContact)
-        this.props.controlFunc(this.props.componentId, data)
-        this.closeEdit()
+        this.props.saveProfileData(data)
     }
 
     render() {
-        return (
-            this.state.showEditSection ? this.renderEdit() : this.renderDisplay()
-        )
-    }
-
-    renderEdit() {
-        let location = { city: '', country: '' }
-        if (this.state.newContact && this.state.newContact.location) {
-            location = this.state.newContact.location
-        }
-
-        return (
-            <div className='ui sixteen wide column'>
-                <ChildSingleInput
-                    inputType="text"
-                    label="Name"
-                    name="name"
-                    value={this.state.newContact.name}
-                    controlFunc={this.handleChange}
-                    maxLength={80}
-                    placeholder="Enter your last name"
-                    errorMessage="Please enter a valid name"
-                />
-                <ChildSingleInput
-                    inputType="text"
-                    label="Email address"
-                    name="email"
-                    value={this.state.newContact.email}
-                    controlFunc={this.handleChange}
-                    maxLength={80}
-                    placeholder="Enter an email"
-                    errorMessage="Please enter a valid email"
-                />
-
-                <ChildSingleInput
-                    inputType="text"
-                    label="Phone number"
-                    name="phone"
-                    value={this.state.newContact.phone}
-                    controlFunc={this.handleChange}
-                    maxLength={12}
-                    placeholder="Enter a phone number"
-                    errorMessage="Please enter a valid phone number"
-                />
-                Location:
-                <Location location={location} handleChange={this.handleChange} />
-                <button type="button" className="ui teal button" onClick={this.saveContact}>Save</button>
-                <button type="button" className="ui button" onClick={this.closeEdit}>Cancel</button>
-            </div>
-        )
-    }
-
-    renderDisplay() {
-
-        let companyName = this.props.details ? this.props.details.name : ""
-        let email = this.props.details ? this.props.details.email : ""
-        let phone = this.props.details ? this.props.details.phone : ""
-        let location = { city: '', country: '' }
-        if (this.props.details && this.props.details.location) {
-            location = this.props.details.location
-        }
-
+        let nationalityOptions = [];
+        nationalityOptions = _.map(nationality, (state, index) => ({
+            key: state,
+            text: state,
+            value: state,
+        }))
         return (
             <div className='row'>
                 <div className="ui sixteen wide column">
                     <React.Fragment>
-                        <p>Name: {companyName}</p>
-                        <p>Email: {email}</p>
-                        <p>Phone: {phone}</p>
-                        <p> Location: {location.city}, {location.country}</p>
+                <Dropdown
+                    name="nationality"
+                    search selection
+                    options={nationalityOptions}
+                    onChange={this.handleChange}
+                    defaultValue={this.state.newData.nationality ? this.state.newData.nationality : "Select your Nationality"}
+                        />
                     </React.Fragment>
-                    <button type="button" className="ui right floated teal button" onClick={this.openEdit}>Edit</button>
                 </div>
-            </div>
+                </div>
         )
-    }
+    }    
 }
