@@ -66,8 +66,7 @@ export class Address extends React.Component {
         this.props.saveProfileData(updateData)
         this.closeEdit();
     }
-    handleChangeCountry(event, objReference) {
-        debugger
+    handleChangeCountry(event, objReference) {        
         var data = Object.assign({}, this.state.newAddress);
         //required
         const name = objReference.name;
@@ -156,7 +155,7 @@ export class Address extends React.Component {
                             search selection
                             options={countriesOptions}
                             onChange={this.handleChangeCountry}
-                            defaultValue={selectedCountry ? selectedCountry : "Select a country"}
+                            placeholder={selectedCountry ? selectedCountry : "Select a country"}
                         />
                     </div>
 
@@ -167,7 +166,7 @@ export class Address extends React.Component {
                             search selection
                             options={this.state.citiesOptions}
                             onChange={this.handleChangeCity}
-                            defaultValue={selectedCity ? selectedCity : "Select a town or city"}
+                            placeholder={selectedCity ? selectedCity : "Select a town or city"}
                         />
                     </div>
                 <ChildSingleInput
@@ -212,7 +211,7 @@ export class Address extends React.Component {
 export class Nationality extends React.Component {
     constructor(props) {
         super(props)
-        debugger
+        
         const details = props.nationalityData ? Object.assign({}, props.nationalityData)
             : {
                 nationality: ""
@@ -233,13 +232,16 @@ export class Nationality extends React.Component {
     }
 
     render() {
+        
         let nationalityOptions = [];
         nationalityOptions = _.map(nationality, (state, index) => ({
             key: state,
             text: state,
             value: state,
         }))
+        let nationalityData = this.state.newData.nationality;
         return (
+
             <div className='row'>
                 <div className="ui sixteen wide column">
                     <React.Fragment>
@@ -248,7 +250,7 @@ export class Nationality extends React.Component {
                     search selection
                     options={nationalityOptions}
                     onChange={this.handleChange}
-                    defaultValue={this.state.newData.nationality ? this.state.newData.nationality : "Select your Nationality"}
+                            placeholder={nationalityData ? nationalityData : "Select your Nationality"}
                         />
                     </React.Fragment>
                 </div>

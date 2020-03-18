@@ -80675,6 +80675,14 @@ export const nationality =
         "Zimbabwean"
     ]
 //added by Blessy for Nationality end
+//added by Blessy for Language start
+export const languageLevel = [
+    { key: "Basic", text: "Basic", value: "Basic" },
+    { key: "Conversational", text: "Conversational", value: "Conversational" },
+    { key: "Fluent", text: "Fluent", value: "Fluent" },
+    { key: "Native/Bilingual", text: "Native/Bilingual", value: "Native/Bilingual" }
+]
+//added by Blessy for Nationality end
 export const getOptions = (number, prefix = 'Choice ') =>
     _.times(number, index => ({
         key: index,

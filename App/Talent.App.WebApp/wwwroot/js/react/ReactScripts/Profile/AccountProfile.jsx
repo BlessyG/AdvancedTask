@@ -21,7 +21,7 @@ import TalentStatus from './TalentStatus.jsx';
 export default class AccountProfile extends React.Component {
     constructor(props) {
         super(props)
-
+        debugger
         this.state = {
             profileData: {
                 address: {
@@ -107,6 +107,7 @@ export default class AccountProfile extends React.Component {
     }
     //updates component's state without saving data
     updateWithoutSave(newValues) {
+        
         let newProfile = Object.assign({}, this.state.profileData, newValues)
         this.setState({
             profileData: newProfile
@@ -114,8 +115,7 @@ export default class AccountProfile extends React.Component {
     }
 
     //updates component's state and saves data
-    updateAndSaveData(newValues) {
-        debugger
+    updateAndSaveData(newValues) {        
         let newProfile = Object.assign({}, this.state.profileData, newValues)
         this.setState({
             profileData: newProfile
