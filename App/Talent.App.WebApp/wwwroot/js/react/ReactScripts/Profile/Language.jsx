@@ -3,21 +3,17 @@ import React from 'react';
 import Cookies from 'js-cookie';
 import { Table, Icon, Dropdown } from 'semantic-ui-react';
 import { languageLevel } from '../Employer/common.js'
-
-export default class Language extends React.Component {
+export default class Language extends React.Component {    
     constructor(props) {
-        super(props); 
-        const langDetails = this.props.languageData ?
-            Object.assign({}, props.languageData)
-            : []
+        super(props);         
         this.state = {
             showAddSection: false,
             options: {
-                id:"",
+                id: "",
                 name: "",
                 level: ""
             },
-            languageList: langDetails            
+            //languageList: langDetails            
         }
         this.handleChange = this.handleChange.bind(this);
         this.handleChangeText = this.handleChangeText.bind(this);
@@ -61,8 +57,11 @@ export default class Language extends React.Component {
             languages:  [...data]
         }
         this.props.updateProfileData(updateData)
+        //this.setState({
+        //    languageList: [...data], showAddSection:false,options
+        //});
         this.setState({
-            languageList: [...data], showAddSection:false
+            showAddSection: false, options: {id:"",name:"",level:""}
         });
     }
     render() {
