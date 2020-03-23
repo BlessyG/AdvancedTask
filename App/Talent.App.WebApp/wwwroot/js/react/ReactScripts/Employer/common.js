@@ -80682,7 +80682,14 @@ export const languageLevel = [
     { key: "Fluent", text: "Fluent", value: "Fluent" },
     { key: "Native/Bilingual", text: "Native/Bilingual", value: "Native/Bilingual" }
 ]
-//added by Blessy for Nationality end
+//added by Blessy for Language end
+//added by Blessy for Skill start
+export const skillLevel = [
+    { key: "Beginner", text: "Beginner", value: "Beginner" },
+    { key: "Intermediate", text: "Intermediate", value: "Intermediate" },
+    { key: "Expert", text: "Expert", value: "Expert" }
+]
+//added by Blessy for Skill end
 export const getOptions = (number, prefix = 'Choice ') =>
     _.times(number, index => ({
         key: index,

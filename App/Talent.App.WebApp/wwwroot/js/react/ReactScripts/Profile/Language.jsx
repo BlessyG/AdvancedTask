@@ -69,7 +69,6 @@ export default class Language extends React.Component {
         });
     }
     handleUpdate(index, enteredName, enteredLevel,e) {
-        debugger
         e.preventDefault();
         var dataList = this.props.languageData;
         const list = dataList.map((item, j) => {
