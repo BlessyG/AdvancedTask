@@ -1,7 +1,8 @@
 ﻿/* Experience section */
 import React from 'react';
 import Cookies from 'js-cookie';
-import { Table, Icon, Dropdown, Button } from 'semantic-ui-react';
+import { Table, Icon } from 'semantic-ui-react';
+import moment from 'moment';
 
 export default class Experience extends React.Component {
     constructor(props) {
@@ -14,8 +15,8 @@ export default class Experience extends React.Component {
                 id: "",
                 company: "",
                 position: "",
-                startDate: "",
-                endDate: "",
+                start: "",
+                end: "",
                 responsibilities: ""
             }
         }
@@ -26,12 +27,12 @@ export default class Experience extends React.Component {
         this.closeEditTable = this.closeEditTable.bind(this);
         this.editRecord = this.editRecord.bind(this);
         this.closeRecord = this.closeRecord.bind(this);
-        this.handleDateChange = this.handleDateChange.bind(this);
     }
     handleAddRecord() {
         this.setState({ showAddSection: true });
     }   
     handleChange(event) {
+        event.preventDefault();
         const id = event.target.id;
         var data = this.state.options
         data[id] = event.target.value
@@ -51,16 +52,19 @@ export default class Experience extends React.Component {
         }
         this.props.updateProfileData(updateData);
         this.setState({
-            showAddSection: false, options: { id: "", company: "", position: "",startDate:"",endDate:"",responsibilities:"" }
+            showAddSection: false, options: { id: "", company: "", position: "",start:"",end:"",responsibilities:"" }
         });
     }
-    handleUpdate(index, enteredName, enteredLevel, e) {
+    handleUpdate(index, company,position,start,end,responsibilities, e) {
         e.preventDefault();
         var dataList = this.props.experienceData;
         const list = dataList.map((item, j) => {
             if (j === index) {
-                item.name = this.state.options.name ? this.state.options.name : enteredName;
-                item.level = this.state.options.level ? this.state.options.level : enteredLevel;
+                item.company = this.state.options.company ? this.state.options.company : company;
+                item.position = this.state.options.position ? this.state.options.position : position;
+                item.start = this.state.options.start ? this.state.options.start : start;
+                item.end = this.state.options.end ? this.state.options.end : end;
+                item.responsibilities = this.state.options.responsibilities ? this.state.options.responsibilities : responsibilities;
                 return item;
             } else {
                 return item;
@@ -87,12 +91,7 @@ export default class Experience extends React.Component {
         this.props.updateProfileData(updateData);
         this.setState({ showTableData: true });
     }
-    handleDateChange(event) {
-        console.log("Date : " + event.target.value);
-        //this.setState({ enteredDate: event.target.value });
-    }
     render() {
-        debugger
         return (
             <div className='row'>
                 <div className="ui sixteen wide column">
@@ -109,13 +108,13 @@ export default class Experience extends React.Component {
                                     Start Date:<br />
                                     <div className="ui calendar" >
                                         <div className="ui input">
-                                            <input type="date" name="start" value={this.state.value} onChange={this.handleChange} id="startDate"/>
+                                            <input type="date" name="start" onChange={this.handleChange} id="start"/>
                                         </div>
                                     </div>
                                     End Date:<br />
                                     <div className="ui calendar" >
                                         <div className="ui input">
-                                            <input type="date" name="start" value={this.state.value} onChange={this.handleChange} id="endDate"/>
+                                            <input type="date" name="end" onChange={this.handleChange} id="end"/>
                                         </div>
                                     </div>
                                 </div>
@@ -139,64 +138,54 @@ export default class Experience extends React.Component {
                                     <Table.HeaderCell textalign='right'><button type="button" className="ui teal button" onClick={this.handleAddRecord}><Icon name="add" />Add New</button></Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
-                            <Table.Body>
-                                {this.props.experienceData.map((experienceList, index) => {
-                                !this.state.showTableData && this.state.tableEditId == experienceList.id ?
-                                    <div >
-                                        <div className='row'>
-                                            Company:<br />
-                                            <input type="text" name="company" placeholder="Company" maxLength={80} onChange={this.handleChange} id="company" value={experienceList.company} />
-                                            Position:<br />
-                                            <input type="text" name="position" placeholder="Position" maxLength={50} onChange={this.handleChange} id="position" value={experienceList.position} />
-                                        </div>
-                                        <div className='row'>
-                                            Start Date:<br />
-                                            <div className="ui calendar" >
-                                                <div className="ui input">
-                                                    <input type="date" name="start" value={experienceList.start} onChange={this.handleDateChange} id="startDate"/>
+                            <Table.Body>                               
+                                {this.props.experienceData.map((experienceList, index) =>
+                                    !this.state.showTableData && this.state.tableEditId == experienceList.id ?
+                                        <Table.Cell colSpan='6' key={experienceList.id}>
+                                        <div >
+                                            <div className='row'>
+                                                Company:<br />
+                                                <input type="text" name="company" placeholder="Company" maxLength={80} onChange={this.handleChange} id="company" defaultValue={experienceList.company} />
+                                                Position:<br />
+                                                <input type="text" name="position" placeholder="Position" maxLength={50} onChange={this.handleChange} id="position" defaultValue={experienceList.position} />
+                                            </div>
+                                            <div className='row'>
+                                                Start Date:<br />
+                                                <div className="ui calendar" >
+                                                    <div className="ui input">
+                                                            <input type="date" name="start" defaultValue={experienceList.start} onChange={this.handleChange} id="start" />
+                                                    </div>
+                                                </div>
+                                                End Date:<br />
+                                                <div className="ui calendar" >
+                                                    <div className="ui input">
+                                                            <input type="date" name="end" defaultValue={experienceList.end} onChange={this.handleChange} id="end" />
+                                                    </div>
                                                 </div>
                                             </div>
-                                            End Date:<br />
-                                            <div className="ui calendar" >
-                                                <div className="ui input">
-                                                    <input type="date" name="end" value={experienceList.end} onChange={this.handleDateChange} id="endDate" />
+                                            <div className='row'>
+                                                Responsibilities:<br />
+                                                <input type="text" name="responsibilities" placeholder="Responsibilities" maxLength={100} onChange={this.handleChange} id="responsibilities" defaultValue={experienceList.responsibilities} />
+                                            </div>
+                                            <div className="row" textalign="left">
+                                                    <button type="button" className="ui teal button" onClick={(e) => this.handleUpdate(index, experienceList.company, experienceList.position, experienceList.start, experienceList.end, experienceList.responsibilities, e)}>Update</button>
+                                                <button type="button" className="ui button" onClick={this.closeEditTable}>Cancel</button>
+                                            </div>
+                                            </div></Table.Cell >
+                                        :
+                                        <Table.Row key={experienceList.id} >
+                                            <Table.Cell > {experienceList.company} </Table.Cell>
+                                            <Table.Cell> {experienceList.position} </Table.Cell>
+                                            <Table.Cell>{experienceList.responsibilities}</Table.Cell>
+                                            <Table.Cell >{moment(experienceList.start).format("Do MMM, YYYY")}</Table.Cell>
+                                            <Table.Cell>{moment(experienceList.end).format("Do MMM, YYYY")}</Table.Cell>
+                                            <Table.Cell >
+                                                <div className="div row" textalign='right'>
+                                                    <div className="div column"><Icon name="pencil" id={experienceList.id} onClick={this.editRecord} /></div>
+                                                    <div className="div column"><Icon name="close" id={experienceList.id} onClick={this.closeRecord} /></div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div className='row'>
-                                            Responsibilities:<br />
-                                            <input type="text" name="responsibilities" placeholder="Responsibilities" maxLength={12} onChange={this.handleChange} id="responsibilities" value={experienceList.responsibilities} />
-                                        </div>
-                                        <div className="row" textalign="left">
-                                            <button type="button" className="ui teal button" onClick={(e) => this.handleUpdate(index, experienceList.name, experienceList.level, e)}>Update</button>
-                                            <button type="button" className="ui button" onClick={this.closeEditTable}>Cancel</button>
-                                        </div>
-                                    </div>
-                                    :
-                                    <Table.Row key={experienceList.id} >
-                                        <Table.Cell >
-                                            <div className="ui sixteen wide column">{experienceList.company}</div>}
-                                        </Table.Cell>
-                                        <Table.Cell>
-                                            <div className="ui sixteen wide column">{experienceList.position}</div>
-                                        </Table.Cell>
-                                        <Table.Cell >
-                                            <div className="ui sixteen wide column">{experienceList.startDate}</div>}
-                                        </Table.Cell>
-                                        <Table.Cell>
-                                            <div className="ui sixteen wide column">{experienceList.endDate}</div>
-                                        </Table.Cell>
-                                        <Table.Cell>
-                                            <div className="ui sixteen wide column">{experienceList.responsibilities}</div>
-                                        </Table.Cell>
-                                        <Table.Cell >
-                                            <div className="div row" textalign='right'>
-                                                <div className="div column"><Icon name="pencil" id={experienceList.id} onClick={this.editRecord} /></div>
-                                                <div className="div column"><Icon name="close" id={experienceList.id} onClick={this.closeRecord} /></div>
-                                            </div>
-                                        </Table.Cell>
-                                    </Table.Row>
-                                }
+                                            </Table.Cell>
+                                        </Table.Row>
                                 )}
                             </Table.Body>
                         </Table>
@@ -204,6 +193,5 @@ export default class Experience extends React.Component {
                 </div>
             </div>
         )
-
     }
 }
