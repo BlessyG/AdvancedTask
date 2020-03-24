@@ -37,9 +37,18 @@ export class Address extends React.Component {
 
     openEdit() {
         const details = Object.assign({}, this.props.addressData)
+        var popCities = [];
+        if (details.country != null) {
+            popCities = _.map(Countries[details.country], (state, index) => ({
+                key: state,
+                text: state,
+                value: state,
+            }))
+        }
         this.setState({
             showEditSection: true,
-            newAddress: details
+            newAddress: details,
+            citiesOptions: popCities
         })
     }
 
@@ -81,7 +90,6 @@ export class Address extends React.Component {
                 text: state,
                 value: state,
             }))
-            console.log(popCities);
         }
         this.setState({
             newAddress: data, citiesOptions: popCities
@@ -154,7 +162,7 @@ export class Address extends React.Component {
                             search selection
                             options={countriesOptions}
                             onChange={this.handleChangeCountry}
-                            placeholder={selectedCountry ? selectedCountry : "Select a country"}
+                            value={selectedCountry ? selectedCountry : "Select a country"}
                         />
                     </div>
 
@@ -165,7 +173,7 @@ export class Address extends React.Component {
                             search selection
                             options={this.state.citiesOptions}
                             onChange={this.handleChangeCity}
-                            placeholder={selectedCity ? selectedCity : "Select a town or city"}
+                            value={selectedCity ? selectedCity : "Select a town or city"}
                         />
                     </div>
                 <ChildSingleInput
@@ -249,7 +257,7 @@ export class Nationality extends React.Component {
                     search selection
                     options={nationalityOptions}
                     onChange={this.handleChange}
-                            placeholder={nationalityData ? nationalityData : "Select your Nationality"}
+                    value={nationalityData ? nationalityData : "Select your Nationality"}
                         />
                     </React.Fragment>
                 </div>

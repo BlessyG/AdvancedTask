@@ -147,7 +147,7 @@ export default class Language extends React.Component {
                                                     <input
                                                         type="text"
                                                         name="editlanguage"
-                                                        placeholder={langList.name}
+                                                        defaultValue={langList.name}
                                                         maxLength={12}
                                                         onChange={this.handleChangeText}
                                                         id="editName"
@@ -162,7 +162,7 @@ export default class Language extends React.Component {
                                                         search selection
                                                         options={languageLevel}
                                                         onChange={this.handleChange}
-                                                        placeholder={langList.level}
+                                                        defaultValue={langList.level}
                                                         className="ui dropdown editLanguage"
                                                         id="editLevel"
                                                     /></div> : <div className="ui sixteen wide column">{langList.level}</div>

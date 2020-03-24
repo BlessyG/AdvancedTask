@@ -143,7 +143,7 @@ export default class Skill extends React.Component {
                                                     <input
                                                         type="text"
                                                         name="editSkill"
-                                                        placeholder={skillList.name}
+                                                        defaultValue={skillList.name}
                                                         maxLength={12}
                                                         onChange={this.handleChangeText}
                                                         id="editName"
@@ -158,7 +158,7 @@ export default class Skill extends React.Component {
                                                         search selection
                                                         options={skillLevel}
                                                         onChange={this.handleChange}
-                                                        placeholder={skillList.level}
+                                                        defaultValue={skillList.level}
                                                         className="ui dropdown editSkill"
                                                         id="editLevel"
                                                     /></div> : <div className="ui sixteen wide column">{skillList.level}</div>
