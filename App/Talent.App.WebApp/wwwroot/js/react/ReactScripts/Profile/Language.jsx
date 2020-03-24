@@ -148,7 +148,7 @@ export default class Language extends React.Component {
                                                         type="text"
                                                         name="editlanguage"
                                                         defaultValue={langList.name}
-                                                        maxLength={12}
+                                                        maxLength={40}
                                                         onChange={this.handleChangeText}
                                                         id="editName"
                                                     />

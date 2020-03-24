@@ -80690,6 +80690,14 @@ export const skillLevel = [
     { key: "Expert", text: "Expert", value: "Expert" }
 ]
 //added by Blessy for Skill end
+//added by Blessy for VisaStatus start
+export const visaType = [
+    { key: "Citizen", text: "Citizen", value: "Citizen" },
+    { key: "Permanent Resident", text: "Permanent Resident", value: "Permanent Resident" },
+    { key: "Work Visa", text: "Work Visa", value: "Work Visa" },
+    { key: "Student Visa", text: "Student Visa", value: "Student Visa" }
+]
+//added by Blessy for VisaStatus end
 export const getOptions = (number, prefix = 'Choice ') =>
     _.times(number, index => ({
         key: index,
