@@ -29,13 +29,12 @@ export default class TalentStatus extends React.Component {
     }
     
     render() {
-        debugger
         return (
             <div className='row'>
                 <div className="ui sixteen wide column">
                     <Form>
                         <Form.Field>
-                            Current Status <b>{this.state.value}</b>
+                            Current Status 
                         </Form.Field>
                         <Form.Field>
                             <Radio

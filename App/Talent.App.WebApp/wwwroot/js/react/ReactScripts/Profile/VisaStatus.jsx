@@ -43,7 +43,6 @@ export default class VisaStatus extends React.Component {
         this.props.saveProfileData(data);
     }
     render() {
-        debugger
         return (
             <div className='row'>
                 <div className="ui sixteen wide column">
