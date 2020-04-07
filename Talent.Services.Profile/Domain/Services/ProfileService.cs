@@ -12,6 +12,7 @@ using Talent.Services.Profile.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using Talent.Common.Security;
+using Talent.Services.Profile.Handler;
 
 namespace Talent.Services.Profile.Domain.Services
 {
@@ -122,7 +123,7 @@ namespace Talent.Services.Profile.Domain.Services
                     existingUser.VisaExpiryDate = model.VisaExpiryDate;
                     existingUser.ProfilePhoto = model.ProfilePhoto;
                     existingUser.VideoName = model.VideoName;
-                    existingUser.CvName = model.CvName;                    
+                    existingUser.CvName = model.CvName;
                     existingUser.Summary = model.Summary;
                     existingUser.Description = model.Description;
                     existingUser.LinkedAccounts = model.LinkedAccounts;
@@ -155,7 +156,7 @@ namespace Talent.Services.Profile.Domain.Services
                         {
                             language = new UserLanguage
                             {
-                                Id = ObjectId.GenerateNewId().ToString(),                                
+                                Id = ObjectId.GenerateNewId().ToString(),
                                 IsDeleted = false
                             };
                         }
@@ -220,7 +221,7 @@ namespace Talent.Services.Profile.Domain.Services
             {
                 return false;
             }
-            
+
             //throw new NotImplementedException();
         }
 
@@ -363,6 +364,7 @@ namespace Talent.Services.Profile.Domain.Services
 
             var newFileName = await _fileService.SaveFile(file, FileType.ProfilePhoto);
 
+
             if (!string.IsNullOrWhiteSpace(newFileName))
             {
                 var oldFileName = profile.ProfilePhoto;
@@ -392,8 +394,81 @@ namespace Talent.Services.Profile.Domain.Services
         public async Task<bool> UpdateTalentPhoto(string talentId, IFormFile file)
         {
             //Your code here;
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            //Console.WriteLine("Inside UpdateProfilePhoto in service : " + file.FileName);
+            //var fileExtension = Path.GetExtension(file.FileName);
+            //List<string> acceptedExtensions = new List<string> { ".jpg", ".png", ".gif", ".jpeg" };
+
+            //if (fileExtension != null && !acceptedExtensions.Contains(fileExtension.ToLower()))
+            //{
+            //    return false;
+            //}
+
+            //var profile = (await _userRepository.Get(x => x.Id == talentId)).SingleOrDefault();
+
+            //if (profile == null)
+            //{
+            //    return false;
+            //}
+
+            //var newFileName = await _fileService.SaveFile(file, FileType.ProfilePhoto);
+
+            //if (!string.IsNullOrWhiteSpace(newFileName))
+            //{
+            //    var oldFileName = profile.ProfilePhoto;
+
+            //    if (!string.IsNullOrWhiteSpace(oldFileName))
+            //    {
+            //        await _fileService.DeleteFile(oldFileName, FileType.ProfilePhoto);
+            //    }
+
+            //    profile.ProfilePhoto = newFileName;
+            //    Console.WriteLine("Inside UpdateProfilePhoto in service - newFileName : " + newFileName);
+            //    profile.ProfilePhotoUrl = await _fileService.GetFileURL(newFileName, FileType.ProfilePhoto);
+            //    Console.WriteLine("Inside UpdateProfilePhoto in service - profileUrl : " + profile.ProfilePhotoUrl);
+            //    await _userRepository.Update(profile);
+            //    return true;
+            //}
+
+            //return false;
+
+            var user = await _userRepository.GetByIdAsync(talentId);
+            if (user == null)
+            {
+                return false;
+            }
+            string uploadDirectory = "images";
+            string[] fileTypes = { ".jpg", ".jpeg", ".gif", ".png", ".svg" };
+            string fileNameWithPath = "";
+            try
+            {
+                if (!fileTypes.Contains(Path.GetExtension(file.FileName).ToLower()))
+                {
+                    return false;
+                }
+                if (file.Length > 0)
+                {
+                    string fileName = user.Id + Path.GetExtension(file.FileName).ToLower();
+                    fileNameWithPath = Path.Combine(uploadDirectory, fileName);
+                    Console.WriteLine("fileName with path inside ProfileService" + fileNameWithPath);
+                    using (var stream = File.Create(fileNameWithPath))
+                    {
+                        await file.CopyToAsync(stream);
+                    }
+                }
+                user.ProfilePhotoUrl = Path.Combine(MyHttpContext.AppBaseUrl, fileNameWithPath).Replace("\\", "/");
+                await _userRepository.Update(user);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+
+
         }
+       
 
         public async Task<bool> AddTalentVideo(string talentId, IFormFile file)
         {

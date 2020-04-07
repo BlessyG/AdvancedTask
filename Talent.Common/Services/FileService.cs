@@ -27,20 +27,45 @@ namespace Talent.Common.Services
 
         public async Task<string> GetFileURL(string id, FileType type)
         {
-            //Your code here;
-            throw new NotImplementedException();
+            string pathWeb = "";
+            var path = "";
+            pathWeb = _environment.WebRootPath;
+            if (id != null && type == FileType.ProfilePhoto && pathWeb != "")
+            {
+                string pathValue = pathWeb + _tempFolder;
+                path = pathValue + id;
+            }
+            Console.WriteLine("Inside fileservice GetFileURL path: " + path);
+            return path;
         }
 
         public async Task<string> SaveFile(IFormFile file, FileType type)
         {
-            //Your code here;
-            throw new NotImplementedException();
+            var myUniqueFileName = "";
+            string pathWeb = "";
+            pathWeb = _environment.WebRootPath;
+            Console.WriteLine("Inside fileservice : " + file.FileName);
+
+            if (file != null && type == FileType.ProfilePhoto && pathWeb != "")
+            {
+                string pathValue = pathWeb + _tempFolder;
+                myUniqueFileName = $@"{DateTime.Now.Ticks}_" + file.FileName;
+                var path = pathValue + myUniqueFileName;
+                using (var fileStream = new FileStream(path, FileMode.Create))
+                {
+                    await file.CopyToAsync(fileStream);
+                }
+                Console.WriteLine("path inside save file"+path);
+            }
+            Console.WriteLine(myUniqueFileName);
+            return myUniqueFileName;
         }
+    
 
         public async Task<bool> DeleteFile(string id, FileType type)
         {
             //Your code here;
-            throw new NotImplementedException();
+            return true;
         }
 
 

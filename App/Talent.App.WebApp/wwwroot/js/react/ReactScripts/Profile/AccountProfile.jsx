@@ -115,7 +115,7 @@ export default class AccountProfile extends React.Component {
 
     //updates component's state and saves data
     updateAndSaveData(newValues) {  
-        debugger
+        
         let newProfile = Object.assign({}, this.state.profileData, newValues)
         this.setState({
             profileData: newProfile
@@ -277,7 +277,7 @@ export default class AccountProfile extends React.Component {
                                         <FormItemWrapper
                                             title='Profile Photo'
                                             tooltip='Please upload your profile photo'
-                                            hideSegment={true}
+                                            
                                         >
                                             <PhotoUpload
                                                 imageId={this.state.profileData.profilePhotoUrl}
@@ -288,7 +288,6 @@ export default class AccountProfile extends React.Component {
                                         <FormItemWrapper
                                             title='Profile Video'
                                             tooltip='Upload a brief self-introduction video'
-                                            hideSegment={true}
                                         >
                                             <VideoUpload
                                                 videoName={this.state.profileData.videoName}
@@ -299,7 +298,6 @@ export default class AccountProfile extends React.Component {
                                         <FormItemWrapper
                                             title='CV'
                                             tooltip='Upload your CV. Accepted files are pdf, doc & docx)'
-                                            hideSegment={true}
                                         >
                                             <CVUpload
                                                 cvName={this.state.profileData.cvName}

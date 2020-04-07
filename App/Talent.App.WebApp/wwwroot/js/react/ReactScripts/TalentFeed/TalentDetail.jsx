@@ -17,8 +17,23 @@ export default class TalentDetail extends React.Component {
     //}
 
     //loadData()  url: 'http://localhost:60290/profile/profile/getTalentProfile',
-   
+
     render() {
-        
+        return (
+            <div>
+                <div className="content">
+                    <div className="header">Opportunities</div>
+                </div>
+                <TalentCardDetail />
+                <div className="extra content">
+                    <div className="left floated">
+                        <i className="thumbs up icon interested"></i>
+                    </div>
+                    <div className="right floated author">
+                        <img className="ui avatar image" src="https://semantic-ui.com/images/avatar/small/matt.jpg" /> Company Z
+                    </div>
+                </div>
+            </div>
+        )
     }
 }

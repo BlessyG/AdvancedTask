@@ -32,7 +32,6 @@ export default class TalentStatus extends React.Component {
         return (
             <div className='row'>
                 <div className="ui sixteen wide column">
-                    <Form>
                         <Form.Field>
                             Current Status 
                         </Form.Field>
@@ -72,7 +71,7 @@ export default class TalentStatus extends React.Component {
                                 onChange={this.handleChange}
                             />
                         </Form.Field>
-                    </Form>
+                    
                 </div>
             </div>
         )

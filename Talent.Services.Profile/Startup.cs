@@ -90,6 +90,7 @@ namespace Talent.Services.Profile
             }
             app.UseCors("AllowWebAppAccess");
             app.UseMvc();
+            app.UseHttpContext();
         }
     }
 }

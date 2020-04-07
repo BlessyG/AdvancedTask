@@ -12,7 +12,7 @@ export default class Education extends React.Component {
         return (
             <React.Fragment>
                 <div className="four wide column">
-                    <h5>Coming Soon...</h5>                    
+                    <h5>under maintenance</h5>                    
                 </div>               
             </React.Fragment>
         )
