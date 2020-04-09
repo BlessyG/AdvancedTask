@@ -6,6 +6,7 @@ import { Loader } from 'semantic-ui-react';
 import CompanyProfile from '../TalentFeed/CompanyProfile.jsx';
 import FollowingSuggestion from '../TalentFeed/FollowingSuggestion.jsx';
 import { BodyWrapper, loaderData } from '../Layout/BodyWrapper.jsx';
+import TalentDetail from './TalentDetail.jsx';
 
 export default class TalentFeed extends React.Component {
     constructor(props) {
@@ -42,7 +43,6 @@ export default class TalentFeed extends React.Component {
 
    
     render() {
-
         return (
             <BodyWrapper reload={this.init} loaderData={this.state.loaderData}>
                 <div className="ui grid talent-feed container">
@@ -52,7 +52,7 @@ export default class TalentFeed extends React.Component {
                     <div className="eight wide column">
                         
                         
-                        <TalentCard />
+                        <TalentDetail />
                         <p id="load-more-loading">
                             <img src="/images/rolling.gif" alt="Loading…" />
                         </p>

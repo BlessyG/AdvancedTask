@@ -23,6 +23,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Talent.Common.Aws;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace Talent.Services.Profile
 {
@@ -88,6 +90,12 @@ namespace Talent.Services.Profile
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                        Path.Combine(Directory.GetCurrentDirectory(), "images")),
+                RequestPath = "/images"
+            });
             app.UseCors("AllowWebAppAccess");
             app.UseMvc();
             app.UseHttpContext();

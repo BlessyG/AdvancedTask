@@ -24,8 +24,10 @@ export default class VisaStatus extends React.Component {
         this.setState({
             newData: data
         })
-        if (value == "Citizen" || value == "Permanent Resident")
-            this.props.saveProfileData(data)
+        if (value == "Citizen" || value == "Permanent Resident") {
+            this.props.saveProfileData(data);
+            this.setState({ showSection: false });
+        }
         else
             this.setState({ showSection: true })
     }
@@ -44,35 +46,32 @@ export default class VisaStatus extends React.Component {
     }
     render() {
         return (
-            <div className='row'>
-                <div className="ui sixteen wide column">
-                    <React.Fragment>
-                        <div>
-                            Visa type:<br />
-                            <Dropdown
-                                name="visaStatus"
-                                search selection
-                                options={visaType}
-                                onChange={this.handleChange}
-                                defaultValue={this.props.visaStatus ? this.props.visaStatus : visaType[0].value}
-                                id="visaStatus"
-                            />
-                        </div>
-                        {this.state.showSection || (this.props.visaStatus != "Citizen" && this.props.visaStatus != "Permanent Resident") ?
-                            <div>
-                                Visa expiry date:<br />
-                                <div className="ui calendar" >
-                                    <div className="ui input">
-                                        <input type="date" name="visaExpiryDate"
-                                            defaultValue={this.props.visaExpiryDate ? this.props.visaExpiryDate : ""}
-                                            onChange={this.handleChangeDate} id="visaExpiryDate" />
-                                    </div>
-                                </div>
-                                <button type="button" className="ui teal button" onClick={this.save}>Save</button>
-                            </div> : ""}
-                    </React.Fragment>
+            <React.Fragment>
+                <div>
+                    Visa type:<br />
+                    <Dropdown
+                        name="visaStatus"
+                        search selection
+                        options={visaType}
+                        onChange={this.handleChange}
+                        value={this.props.visaStatus ? this.props.visaStatus : visaType[0].value}
+                        id="visaStatus"
+                    />
                 </div>
-            </div>
+                {this.state.showSection || (this.props.visaStatus != "Citizen" && this.props.visaStatus != "Permanent Resident") ?
+                    <div>
+                        Visa expiry date:<br />
+                        <div className="ui calendar" >
+                            <div className="ui input">
+                                <input type="date" name="visaExpiryDate"
+                                    value={this.props.visaExpiryDate ? this.props.visaExpiryDate : ""}
+                                    onChange={this.handleChangeDate} id="visaExpiryDate" />
+                            </div>
+                            <button type="button" className="ui teal button" onClick={this.save}>Save</button>
+                        </div>
+                    </div> : ""}
+            </React.Fragment>
+
         )
     }
 }

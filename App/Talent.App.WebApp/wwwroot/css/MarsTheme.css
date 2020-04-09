@@ -410,8 +410,12 @@ i.circular.icon {
     text-align:center;
 }
 .ui.video.custom {
-    width: 450px;
+    width: 550px;
     height: 360px;
+}
+.i.icon.location{
+    width:22%;
+    align-content:center;
 }
 /*added by blessy for Photo page end*/
 /* Search results page */

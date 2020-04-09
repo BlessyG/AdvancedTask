@@ -18,7 +18,7 @@ export default class Experience extends React.Component {
                 start: "",
                 end: "",
                 responsibilities: ""
-            }
+            },
         }
         this.handleChange = this.handleChange.bind(this);
         this.addExperience = this.addExperience.bind(this);
@@ -153,13 +153,13 @@ export default class Experience extends React.Component {
                                                 Start Date:<br />
                                                 <div className="ui calendar" >
                                                     <div className="ui input">
-                                                            <input type="date" name="start" defaultValue={experienceList.start} onChange={this.handleChange} id="start" />
+                                                            <input type="date" name="start" defaultValue={moment(experienceList.start).format("YYYY-MM-DD")} onChange={this.handleChange} id="start" />
                                                     </div>
                                                 </div>
                                                 End Date:<br />
                                                 <div className="ui calendar" >
                                                     <div className="ui input">
-                                                            <input type="date" name="end" defaultValue={experienceList.end} onChange={this.handleChange} id="end" />
+                                                            <input type="date" name="end" defaultValue={moment(experienceList.end).format("YYYY-MM-DD")} onChange={this.handleChange} id="end" />
                                                     </div>
                                                 </div>
                                             </div>

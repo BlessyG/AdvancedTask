@@ -7,41 +7,6 @@ export default class PhotoUpload extends Component {
 
     constructor(props) {
         super(props)
-        //        this.state = {
-        //            imgUpload: ''
-        //        };
-        //        this.handleChange = this.handleChange.bind(this);
-        //    }
-
-        //    handleChange(event) {
-        //        event.preventDefault();
-        //    }
-
-        //    render() {
-        //        return (
-        //            <div className='row'>
-        //                <div className="ui sixteen wide column">
-        //                    <strong>Profile Photo</strong>                    
-        //                    <div>
-        //                        <input id='fileinput' type='file'
-        //                            style={{ display: 'none' }}
-        //                            accept=".png,.jpg,.jpeg"
-        //                            onChange={this.handleChange}
-        //                        />
-        //                        <label htmlFor='fileinput' float='right'>                           
-        //                            { this.state.imgUpload ?
-        //                                <img src='https://react.semantic-ui.com/images/wireframe/square-image.png' className="ui image custom"/> :
-        //                                <Icon name="camera retro" size="huge" circular className="i icon custom" />
-        //                            }
-        //                    </label>
-        //                </div>
-        //                </div>
-        //            </div>
-        //        )
-        //    }
-        //}
-
-
         this.selectFileToUpload = this.selectFileToUpload.bind(this);
         this.fileSelectedHandler = this.fileSelectedHandler.bind(this);
         this.fileUploadHandler = this.fileUploadHandler.bind(this);
@@ -51,7 +16,8 @@ export default class PhotoUpload extends Component {
         this.state = {
             selectedFile: null,
             selectedFileName: '',
-            imageSrc: ''
+            imageSrc: '',
+            showUploadButton:false
         }
     };
 
@@ -77,7 +43,8 @@ export default class PhotoUpload extends Component {
         this.setState({
             selectedFile: localSelectedFile,
             selectedFileName: localSelectedFileName,
-            imageSrc: localImageSrc
+            imageSrc: localImageSrc,
+            showUploadButton:true
         })
     }
 
@@ -104,6 +71,7 @@ export default class PhotoUpload extends Component {
             contentType: false,
             success: function (res) {
                 if (res.success) {
+                    this.setState({ showUploadButton: false });
                     TalentUtil.notification.show("Profile updated sucessfully", "success", null, null)
                 } else {
                     TalentUtil.notification.show(res.message, "error", null, null);
@@ -113,7 +81,7 @@ export default class PhotoUpload extends Component {
                 //Display error
                 TalentUtil.notification.show("There is an error when updating Images - " + error, "error", null, null);
             }
-        });
+        });        
     }
 
     render() {
@@ -131,12 +99,14 @@ export default class PhotoUpload extends Component {
             <div className="row">
                 <div className="ui sixteen wide column">
                     <section>
-                        <div>
+                        <div style={{ float: "right", marginRight: "4.0em"}}>
                             <label htmlFor="work_sample_uploader" className="profile-photo">
                                 {showProfileImg}
                             </label>
                             <input id="selectFile" type="file" style={{ display: 'none' }} onChange={this.fileSelectedHandler} accept="image/*" />
-                            <button type="button" className="ui teal button" onClick={this.fileUploadHandler}>Upload</button>
+                            {this.state.showUploadButton ? <div>
+                                <button type="button" className="ui teal button" onClick={this.fileUploadHandler}><Icon name="upload" />Upload</button>
+                            </div> : ""}
                         </div>
                     </section>
                 </div>

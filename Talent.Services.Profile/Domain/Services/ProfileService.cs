@@ -448,7 +448,8 @@ namespace Talent.Services.Profile.Domain.Services
                 }
                 if (file.Length > 0)
                 {
-                    string fileName = user.Id + Path.GetExtension(file.FileName).ToLower();
+                    //string fileName = user.Id + Path.GetExtension(file.FileName).ToLower();
+                    string fileName = $@"{DateTime.Now.Ticks}_" + file.FileName;
                     fileNameWithPath = Path.Combine(uploadDirectory, fileName);
                     Console.WriteLine("fileName with path inside ProfileService" + fileNameWithPath);
                     using (var stream = File.Create(fileNameWithPath))
