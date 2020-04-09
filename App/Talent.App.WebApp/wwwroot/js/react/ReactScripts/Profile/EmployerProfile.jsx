@@ -114,7 +114,6 @@ export default class EmployeeProfile extends React.Component {
     };
 
     validateField(fieldName, value) {
-        //debugger
         //console.log("validateField!")
         let fieldValidationErrors = this.state.formErrors;
         let emailValid = this.state.emailValid;

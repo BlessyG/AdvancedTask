@@ -8,7 +8,7 @@ import { nationality } from '../Employer/common.js'
 export class Address extends React.Component {
     constructor(props) {
         super(props)
-        
+
         const details = this.props.addressData ?
             Object.assign({}, props.addressData)
             : {
@@ -74,7 +74,7 @@ export class Address extends React.Component {
         this.props.saveProfileData(updateData)
         this.closeEdit();
     }
-    handleChangeCountry(event, objReference) {        
+    handleChangeCountry(event, objReference) {
         var data = Object.assign({}, this.state.newAddress);
         //required
         const name = objReference.name;
@@ -122,41 +122,44 @@ export class Address extends React.Component {
         }))
         return (
             <div className='ui sixteen wide column'>
-                <div className='row'>
-                    <ChildSingleInput
-                        inputType="text"
-                        label="Number"
-                        name="number"
-                        value={this.state.newAddress.number}
-                        controlFunc={this.handleChange}
-                        maxLength={80}
-                        placeholder="Enter your house number"
-                        errorMessage="Please enter a valid Number"
-                    />
-                    <ChildSingleInput
-                        inputType="text"
-                        label="Street"
-                        name="street"
-                        value={this.state.newAddress.street}
-                        controlFunc={this.handleChange}
-                        maxLength={80}
-                        placeholder="Enter your street name"
-                        errorMessage="Please enter a valid street name"
-                    />
-                    <ChildSingleInput
-                        inputType="text"
-                        label="Suburb"
-                        name="suburb"
-                        value={this.state.newAddress.suburb}
-                        controlFunc={this.handleChange}
-                        maxLength={80}
-                        placeholder="Enter an suburb"
-                        errorMessage="Please enter a valid suburb"
-                    />
+                <div className='div row'>
+                    <div className='div column' id='inputLocation'>                       
+                        <strong> <label>Number</label></strong><br />
+                        <input
+                            type="text"
+                            name="number"
+                            value={this.state.newAddress.number}
+                            placeholder="Enter your house number"
+                            maxLength={20}
+                            onChange={this.handleChange}
+                        />
+                    </div>
+                    <div className='div column' id='inputStreet'>
+                        <strong> <label>Street</label></strong><br />
+                        <input
+                            type="text"
+                            name="street"
+                            value={this.state.newAddress.street}
+                            placeholder="Enter your street name"
+                            maxLength={120}
+                            onChange={this.handleChange}
+                        />
+                    </div>
+                    <div className='div column' id='inputLocation'>
+                        <strong> <label>Suburb</label></strong><br />
+                        <input
+                            type="text"
+                            name="suburb"
+                            value={this.state.newAddress.suburb}
+                            placeholder="Enter an suburb"
+                            maxLength={100}
+                            onChange={this.handleChange}
+                        />
+                    </div>
                 </div>
-                <div className='row'>
-                    <div>
-                        <label>Country</label><br />
+                <div className='div row'>
+                    <div className='div column'>
+                       <strong> <label>Country</label></strong><br />
                         <Dropdown
                             name="country"
                             search selection
@@ -166,8 +169,8 @@ export class Address extends React.Component {
                         />
                     </div>
 
-                    <div>
-                        <label>City</label><br />
+                    <div className='div column'>
+                        <strong> <label>City</label> </strong><br />
                         <Dropdown
                             name="city"
                             search selection
@@ -176,19 +179,20 @@ export class Address extends React.Component {
                             value={selectedCity ? selectedCity : "Select a town or city"}
                         />
                     </div>
-                <ChildSingleInput
-                    inputType="text"
-                    label="Post Code"
-                    name="postCode"
-                    value={this.state.newAddress.postCode}
-                    controlFunc={this.handleChange}
-                    maxLength={12}
-                    placeholder="Enter a post code"
-                    errorMessage="Please enter a valid post code"
-                />
-            </div>
-            <button type="button" className="ui teal button" onClick={this.saveContact}>Save</button>
-            <button type="button" className="ui button" onClick={this.closeEdit}>Cancel</button>
+                    <div className='div column' id='inputLocation'>                       
+                        <strong> <label>Post Code</label></strong><br />
+                        <input
+                            type="text"
+                            name="postcode"
+                            value={this.state.newAddress.postCode}
+                            placeholder="Enter a post code"
+                            maxLength={20}
+                            onChange={this.handleChange}
+                        />
+                    </div>
+                </div>
+                <button type="button" className="ui teal button" onClick={this.saveContact}>Save</button>
+                <button type="button" className="ui button" onClick={this.closeEdit}>Cancel</button>
             </div >
         )
     }
@@ -218,7 +222,7 @@ export class Address extends React.Component {
 export class Nationality extends React.Component {
     constructor(props) {
         super(props)
-        
+
         const details = props.nationalityData ? Object.assign({}, props.nationalityData)
             : {
                 nationality: ""
@@ -239,7 +243,7 @@ export class Nationality extends React.Component {
     }
 
     render() {
-        
+
         let nationalityOptions = [];
         nationalityOptions = _.map(nationality, (state, index) => ({
             key: state,
@@ -252,16 +256,16 @@ export class Nationality extends React.Component {
             <div className='row'>
                 <div className="ui sixteen wide column">
                     <React.Fragment>
-                <Dropdown
-                    name="nationality"
-                    search selection
-                    options={nationalityOptions}
-                    onChange={this.handleChange}
-                    value={nationalityData ? nationalityData : "Select your Nationality"}
+                        <Dropdown
+                            name="nationality"
+                            search selection
+                            options={nationalityOptions}
+                            onChange={this.handleChange}
+                            value={nationalityData ? nationalityData : "Select your Nationality"}
                         />
                     </React.Fragment>
                 </div>
-                </div>
+            </div>
         )
-    }    
+    }
 }

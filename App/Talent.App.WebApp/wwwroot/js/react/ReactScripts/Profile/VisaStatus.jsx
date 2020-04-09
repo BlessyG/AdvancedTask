@@ -1,7 +1,8 @@
 ﻿import React from 'react'
 import { SingleInput } from '../Form/SingleInput.jsx';
-import { visaType } from '../Employer/common.js'
-import { Dropdown } from 'semantic-ui-react'
+import { visaType } from '../Employer/common.js';
+import { Dropdown } from 'semantic-ui-react';
+import moment from 'moment';
 
 export default class VisaStatus extends React.Component {
     constructor(props) {
@@ -47,7 +48,7 @@ export default class VisaStatus extends React.Component {
     render() {
         return (
             <React.Fragment>
-                <div>
+                <div style={{ paddingTop: '10px', paddingBottom:'10px'}}>
                     Visa type:<br />
                     <Dropdown
                         name="visaStatus"
@@ -59,12 +60,12 @@ export default class VisaStatus extends React.Component {
                     />
                 </div>
                 {this.state.showSection || (this.props.visaStatus != "Citizen" && this.props.visaStatus != "Permanent Resident") ?
-                    <div>
+                    <div style={{ paddingTop: '10px', paddingBottom: '10px' }}>
                         Visa expiry date:<br />
                         <div className="ui calendar" >
-                            <div className="ui input">
+                            <div className="ui input" style={{paddingRight:'30px'}}>
                                 <input type="date" name="visaExpiryDate"
-                                    value={this.props.visaExpiryDate ? this.props.visaExpiryDate : ""}
+                                    defaultValue={this.props.visaExpiryDate ? moment(this.props.visaExpiryDate).format("YYYY-MM-DD") : ""}
                                     onChange={this.handleChangeDate} id="visaExpiryDate" />
                             </div>
                             <button type="button" className="ui teal button" onClick={this.save}>Save</button>

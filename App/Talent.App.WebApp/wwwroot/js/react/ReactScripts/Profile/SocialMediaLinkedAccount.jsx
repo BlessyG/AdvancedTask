@@ -41,7 +41,6 @@ export default class SocialMediaLinkedAccount extends React.Component {
     }
 
     handleChange(event) {
-        debugger
         const data = Object.assign({}, this.state.newLinkedAccounts.linkedAccounts)
         data[event.target.name] = event.target.value
         this.setState({

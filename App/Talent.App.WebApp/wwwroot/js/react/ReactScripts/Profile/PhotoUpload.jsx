@@ -52,7 +52,6 @@ export default class PhotoUpload extends Component {
 
     fileUploadHandler(event) {
         event.preventDefault();
-        debugger
         let data = new FormData();
         if (this.state.selectedFile != "") {
             data.append('file', this.state.selectedFile);

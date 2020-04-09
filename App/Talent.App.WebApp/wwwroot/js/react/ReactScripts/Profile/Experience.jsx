@@ -30,7 +30,7 @@ export default class Experience extends React.Component {
     }
     handleAddRecord() {
         this.setState({ showAddSection: true });
-    }   
+    }
     handleChange(event) {
         event.preventDefault();
         const id = event.target.id;
@@ -52,10 +52,10 @@ export default class Experience extends React.Component {
         }
         this.props.updateProfileData(updateData);
         this.setState({
-            showAddSection: false, options: { id: "", company: "", position: "",start:"",end:"",responsibilities:"" }
+            showAddSection: false, options: { id: "", company: "", position: "", start: "", end: "", responsibilities: "" }
         });
     }
-    handleUpdate(index, company,position,start,end,responsibilities, e) {
+    handleUpdate(index, company, position, start, end, responsibilities, e) {
         e.preventDefault();
         var dataList = this.props.experienceData;
         const list = dataList.map((item, j) => {
@@ -98,31 +98,35 @@ export default class Experience extends React.Component {
                     <React.Fragment>
                         {this.state.showAddSection ?
                             <div >
-                                <div className='row'>
-                                    Company:<br />
-                                    <input type="text" name="company" placeholder="Company" maxLength={80} onChange={this.handleChange} id="company" />
-                                    Position:<br />
-                                    <input type="text" name="position" placeholder="Position" maxLength={50} onChange={this.handleChange} id="position" />
-                                </div>
-                                <div className='row'>
-                                    Start Date:<br />
-                                    <div className="ui calendar" >
-                                        <div className="ui input">
-                                            <input type="date" name="start" onChange={this.handleChange} id="start"/>
-                                        </div>
+                                <div className='div row'>
+                                    <div className='div column' id='inputExperience'>
+                                        Company:<br />
+                                        <input type="text" name="company" placeholder="Company" maxLength={80} onChange={this.handleChange} id="company" />
                                     </div>
-                                    End Date:<br />
-                                    <div className="ui calendar" >
-                                        <div className="ui input">
-                                            <input type="date" name="end" onChange={this.handleChange} id="end"/>
-                                        </div>
+                                    <div className='div column' id='inputExperience'>
+                                        Position:<br />
+                                        <input type="text" name="position" placeholder="Position" maxLength={50} onChange={this.handleChange} id="position" />
                                     </div>
                                 </div>
-                                <div className='row'>
+                                <div className='div row'>
+                                    <div className='div column' id='inputExperience'>
+                                        Start Date:<br />
+                                        <div className="ui calendar" >
+                                                <input type="date" name="start" onChange={this.handleChange} id="start" />                                            
+                                        </div>
+                                    </div>
+                                    <div className='div column' id='inputExperience'>
+                                        End Date:<br />
+                                        <div className="ui calendar" >
+                                                <input type="date" name="end" onChange={this.handleChange} id="end" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className='div row'>
                                     Responsibilities:<br />
                                     <input type="text" name="responsibilities" placeholder="Responsibilities" maxLength={100} onChange={this.handleChange} id="responsibilities" />
                                 </div>
-                                <div className='row'>
+                                <div className='div row'>
                                     <button type="button" className="ui teal button" onClick={this.addExperience}>Add</button>
                                     <button type="button" className="ui button" onClick={this.closeEdit}>Cancel</button>
                                 </div>
@@ -138,39 +142,43 @@ export default class Experience extends React.Component {
                                     <Table.HeaderCell textalign='right'><button type="button" className="ui teal button" onClick={this.handleAddRecord}><Icon name="add" />Add New</button></Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
-                            <Table.Body>                               
+                            <Table.Body>
                                 {this.props.experienceData.map((experienceList, index) =>
                                     !this.state.showTableData && this.state.tableEditId == experienceList.id ?
                                         <Table.Cell colSpan='6' key={experienceList.id}>
-                                        <div >
-                                            <div className='row'>
-                                                Company:<br />
-                                                <input type="text" name="company" placeholder="Company" maxLength={80} onChange={this.handleChange} id="company" defaultValue={experienceList.company} />
-                                                Position:<br />
-                                                <input type="text" name="position" placeholder="Position" maxLength={50} onChange={this.handleChange} id="position" defaultValue={experienceList.position} />
-                                            </div>
-                                            <div className='row'>
-                                                Start Date:<br />
-                                                <div className="ui calendar" >
-                                                    <div className="ui input">
-                                                            <input type="date" name="start" defaultValue={moment(experienceList.start).format("YYYY-MM-DD")} onChange={this.handleChange} id="start" />
+                                            <div >
+                                                <div className='div row'>
+                                                    <div className='div column' id='inputExperience'>
+                                                        Company:<br />
+                                                        <input type="text" name="company" placeholder="Company" maxLength={80} onChange={this.handleChange} id="company" defaultValue={experienceList.company} />
+                                                    </div>
+                                                    <div className='div column' id='inputExperience'>
+                                                        Position:<br />
+                                                        <input type="text" name="position" placeholder="Position" maxLength={50} onChange={this.handleChange} id="position" defaultValue={experienceList.position} />
                                                     </div>
                                                 </div>
-                                                End Date:<br />
-                                                <div className="ui calendar" >
-                                                    <div className="ui input">
-                                                            <input type="date" name="end" defaultValue={moment(experienceList.end).format("YYYY-MM-DD")} onChange={this.handleChange} id="end" />
+                                                <div className='div row'>
+                                                    <div className='div column' id='inputExperience'>
+                                                        Start Date:<br />
+                                                        <div className="ui calendar" >
+                                                                <input type="date" name="start" defaultValue={moment(experienceList.start).format("YYYY-MM-DD")} onChange={this.handleChange} id="start" />
+                                                       </div>
+                                                    </div>
+                                                    <div className='div column' id='inputExperience'>
+                                                        End Date:<br />
+                                                        <div className="ui calendar" >
+                                                                <input type="date" name="end" defaultValue={moment(experienceList.end).format("YYYY-MM-DD")} onChange={this.handleChange} id="end" />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div className='row'>
-                                                Responsibilities:<br />
-                                                <input type="text" name="responsibilities" placeholder="Responsibilities" maxLength={100} onChange={this.handleChange} id="responsibilities" defaultValue={experienceList.responsibilities} />
-                                            </div>
-                                            <div className="row" textalign="left">
+                                                <div className='div row'>
+                                                    Responsibilities:<br />
+                                                    <input type="text" name="responsibilities" placeholder="Responsibilities" maxLength={100} onChange={this.handleChange} id="responsibilities" defaultValue={experienceList.responsibilities} />
+                                                </div>
+                                                <div className="div row" textalign="left">
                                                     <button type="button" className="ui teal button" onClick={(e) => this.handleUpdate(index, experienceList.company, experienceList.position, experienceList.start, experienceList.end, experienceList.responsibilities, e)}>Update</button>
-                                                <button type="button" className="ui button" onClick={this.closeEditTable}>Cancel</button>
-                                            </div>
+                                                    <button type="button" className="ui button" onClick={this.closeEditTable}>Cancel</button>
+                                                </div>
                                             </div></Table.Cell >
                                         :
                                         <Table.Row key={experienceList.id} >
