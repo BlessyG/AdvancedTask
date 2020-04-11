@@ -46,6 +46,8 @@ export default class VisaStatus extends React.Component {
         this.props.saveProfileData(data);
     }
     render() {
+        var isCitizen = (this.props.visaStatus && this.props.visaStatus != "Citizen") ? true : false;
+        var isPR = (this.props.visaStatus && this.props.visaStatus != "Permanent Resident") ? true : false;
         return (
             <React.Fragment>
                 <div style={{ paddingTop: '10px', paddingBottom:'10px'}}>
@@ -59,7 +61,7 @@ export default class VisaStatus extends React.Component {
                         id="visaStatus"
                     />
                 </div>
-                {this.state.showSection || (this.props.visaStatus != "Citizen" && this.props.visaStatus != "Permanent Resident") ?
+                {this.state.showSection || (isCitizen && isPR ) ?
                     <div style={{ paddingTop: '10px', paddingBottom: '10px' }}>
                         Visa expiry date:<br />
                         <div className="ui calendar" >

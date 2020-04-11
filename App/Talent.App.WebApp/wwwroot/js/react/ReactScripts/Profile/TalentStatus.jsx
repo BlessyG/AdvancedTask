@@ -40,7 +40,7 @@ export default class TalentStatus extends React.Component {
                                 label='Actively looking for a job'
                                 name='radioGroup'
                                 value='1'
-                                checked={this.props.status.status === '1'}
+                            checked={this.props.status ? this.props.status.status === '1':false}
                                 onChange={this.handleChange}
                             />
                         </Form.Field>
@@ -49,7 +49,7 @@ export default class TalentStatus extends React.Component {
                                 label='Not looking for a job at the moment'
                                 name='radioGroup'
                                 value='2'
-                                checked={this.props.status.status === '2'}
+                            checked={this.props.status ? this.props.status.status === '2':false}
                                 onChange={this.handleChange}
                             />
                         </Form.Field>
@@ -58,7 +58,7 @@ export default class TalentStatus extends React.Component {
                                 label='Currently employed but open to offers'
                                 name='radioGroup'
                                 value='3'
-                                checked={this.props.status.status === '3'}
+                            checked={this.props.status? this.props.status.status === '3' : false}
                                 onChange={this.handleChange}
                             />
                         </Form.Field>
@@ -67,7 +67,7 @@ export default class TalentStatus extends React.Component {
                                 label='Will be available on later date'
                                 name='radioGroup'
                                 value='4'
-                                checked={this.props.status.status === '4'}
+                            checked={this.props.status ? this.props.status.status === '4':false}
                                 onChange={this.handleChange}
                             />
                         </Form.Field>

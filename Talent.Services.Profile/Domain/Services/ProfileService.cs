@@ -499,7 +499,46 @@ namespace Talent.Services.Profile.Domain.Services
         public async Task<IEnumerable<TalentSnapshotViewModel>> GetTalentSnapshotList(string employerOrJobId, bool forJob, int position, int increment)
         {
             //Your code here;
-            throw new NotImplementedException();
+            var profile = await _employerRepository.GetByIdAsync(employerOrJobId);
+            var users = _userRepository.GetQueryable()
+                .Skip(position).Take(increment)
+                .Select(u => new User
+                {
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    Skills = u.Skills,
+                    CvName = u.CvName,
+                    Id = u.Id,
+                    ProfilePhotoUrl = u.ProfilePhotoUrl,
+                    Summary = u.Summary,
+                    VideoName = u.VideoName,
+                    VisaStatus = u.VisaStatus,
+                    LinkedAccounts = u.LinkedAccounts
+                });
+            var result = new List<TalentSnapshotViewModel>();
+            foreach (var user in users)
+            {
+                if (string.IsNullOrEmpty(user.FirstName))
+                {
+                    continue;
+                }
+                result.Add(new TalentSnapshotViewModel
+                {
+                    Name = user.FirstName + " " + user.LastName,
+                    Skills = user.Skills.Select(s => s.Skill).ToList(),
+                    CurrentEmployment = "ABC",
+                    CVUrl = user.CvName,
+                    Id = user.Id,
+                    PhotoId = user.ProfilePhotoUrl,
+                    Summary = user.Summary,
+                    Visa = user.VisaStatus,
+                    VideoUrl = user.VideoName,
+                    Level = "Software Developer",
+                    LinkedIn = user.LinkedAccounts.LinkedIn,
+                    GitHub = user.LinkedAccounts.Github
+                });
+            }
+            return result;
         }
 
         public async Task<IEnumerable<TalentSnapshotViewModel>> GetTalentSnapshotList(IEnumerable<string> ids)

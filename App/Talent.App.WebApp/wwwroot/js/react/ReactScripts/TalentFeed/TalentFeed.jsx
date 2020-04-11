@@ -38,10 +38,38 @@ export default class TalentFeed extends React.Component {
 
     componentDidMount() {
         //window.addEventListener('scroll', this.handleScroll);
-        this.init()
+        this.init();
+        this.loadData()
     };
-
-   
+    loadData() {
+        var cookies = Cookies.get('talentAuthToken');
+        $.ajax({
+            url: 'https://talent-advanced-profile.azurewebsites.net/profile/profile/getTalent',
+            headers: {
+                'Authorization': 'Bearer ' + cookies,
+                'Content-Type': 'application/json'
+            },
+            type: "GET",
+            data: {
+                feed: {
+                    position:this.state.loadPosition,
+                    number:this.state.loadNumber
+                }
+            },
+            success: function (res) {
+                this.updateWithoutSave(res.data)
+                this.setState(state => ({
+                    feedData: [...state.feedData, ...res.data] 
+                }));
+            }.bind(this)
+        })
+    }
+    updateWithoutSave(newValues) {
+        let newProfile = Object.assign({}, this.state.profileData, newValues)
+        this.setState({
+            profileData: newProfile
+        })
+    }
     render() {
         return (
             <BodyWrapper reload={this.init} loaderData={this.state.loaderData}>
@@ -49,10 +77,11 @@ export default class TalentFeed extends React.Component {
                     <div className="four wide column">
                         <CompanyProfile />
                     </div>
-                    <div className="eight wide column">
-                        
-                        
-                        <TalentDetail />
+                    <div className="eight wide column">                                         
+                        <TalentDetail
+                            talentInfo={this.state.feedData}
+                            isLoadingFeed={this.state.loadingFeedData}
+                        />
                         <p id="load-more-loading">
                             <img src="/images/rolling.gif" alt="Loading…" />
                         </p>

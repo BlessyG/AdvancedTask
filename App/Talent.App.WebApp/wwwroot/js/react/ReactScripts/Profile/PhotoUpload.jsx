@@ -84,11 +84,12 @@ export default class PhotoUpload extends Component {
     }
 
     render() {
+        debugger
         let showProfileImg = [];
         let profileUrl = this.state.imageSrc ? this.state.imageSrc : this.props.imageId;
         //let test = `url(${URL.createObjectURL(this.props.imageId)}`;
 
-        if (profileUrl != '') {
+        if (profileUrl != null && profileUrl != '') {
             showProfileImg.push(<span key="imgSpan"><img style={{ height: 112, width: 112, borderRadius: 55 }} className="ui small" src={profileUrl} alt="Image Not Found" onClick={this.selectFileToUpload} /></span>);
         } else {
             showProfileImg.push(<span key="imgSpan"><i className="huge circular camera retro icon " style={{ alignContent: 'right', verticalAlign: 'top' }} onClick={this.selectFileToUpload}></i></span>);
