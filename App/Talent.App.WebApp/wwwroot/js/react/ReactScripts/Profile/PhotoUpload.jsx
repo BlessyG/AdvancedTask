@@ -84,6 +84,7 @@ export default class PhotoUpload extends Component {
     }
 
     render() {
+        debugger
         let showProfileImg = [];
         let profileUrl = this.state.imageSrc ? this.state.imageSrc : this.props.imageId;
         //let test = `url(${URL.createObjectURL(this.props.imageId)}`;

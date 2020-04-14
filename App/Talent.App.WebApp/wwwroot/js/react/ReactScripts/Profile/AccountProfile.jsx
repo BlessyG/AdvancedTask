@@ -92,7 +92,7 @@ export default class AccountProfile extends React.Component {
     loadData() {
         var cookies = Cookies.get('talentAuthToken');
         $.ajax({
-            url: 'https://talent-advanced-profile.azurewebsites.net/profile/profile/getTalentProfile',
+            url: 'https://talentprofileserv.azurewebsites.net/profile/profile/getTalentProfile',
             headers: {
                 'Authorization': 'Bearer ' + cookies,
                 'Content-Type': 'application/json'
@@ -131,7 +131,7 @@ export default class AccountProfile extends React.Component {
         console.log(JSON.stringify(this.state.profileData));
         
         $.ajax({
-            url: 'https://talent-advanced-profile.azurewebsites.net/profile/profile/updateTalentProfile',
+            url: 'https://talentprofileserv.azurewebsites.net/profile/profile/updateTalentProfile',
             headers: {
                 'Authorization': 'Bearer ' + cookies,
                 'Content-Type': 'application/json'
@@ -282,7 +282,7 @@ export default class AccountProfile extends React.Component {
                                             <PhotoUpload
                                                 imageId={this.state.profileData.profilePhotoUrl}
                                                 updateProfileData={this.updateWithoutSave}
-                                                savePhotoUrl='https://talent-advanced-profile.azurewebsites.net/profile/profile/updateProfilePhoto'
+                                                savePhotoUrl='https://talentprofileserv.azurewebsites.net/profile/profile/updateProfilePhoto'
                                             />
                                         </FormItemWrapper>
                                         <FormItemWrapper
@@ -292,7 +292,7 @@ export default class AccountProfile extends React.Component {
                                             <VideoUpload
                                                 videoName={this.state.profileData.videoName}
                                                 updateProfileData={this.updateWithoutSave}
-                                                saveVideoUrl={'https://talent-advanced-profile.azurewebsites.net/profile/profile/updateTalentVideo'}
+                                                saveVideoUrl={'https://talentprofileserv.azurewebsites.net/profile/profile/updateTalentVideo'}
                                             />
                                         </FormItemWrapper>
                                         <FormItemWrapper
@@ -303,7 +303,7 @@ export default class AccountProfile extends React.Component {
                                                 cvName={this.state.profileData.cvName}
                                                 cvUrl={this.state.profileData.cvUrl}
                                                 updateProfileData={this.updateWithoutSave}
-                                                saveCVUrl={'https://talent-advanced-profile.azurewebsites.net/profile/profile/updateTalentCV'}
+                                                saveCVUrl={'https://talentprofileserv.azurewebsites.net/profile/profile/updateTalentCV'}
                                             />
                                         </FormItemWrapper>
                                         <SelfIntroduction

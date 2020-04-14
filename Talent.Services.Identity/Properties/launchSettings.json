@@ -3,7 +3,7 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "https://talent-advanced-identity.azurewebsites.net/",
+      "applicationUrl": "https://talentidentity.azurewebsites.net/",
       "sslPort": 0
     }
   },
@@ -21,7 +21,7 @@
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://talent-advanced-identity.azurewebsites.net/"
+      "applicationUrl": "http://localhost:60998/"
     }
   }
 }
